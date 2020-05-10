@@ -3,12 +3,18 @@ console.log('Javascript carregado');
 //codigo da pagina airbnb
 const requestURL = 'https://api.sheety.co/30b6e400-9023-4a15-8e6c-16aa4e3b1e72';
 const bookings = document.querySelector("#bookings");
-const data = [];
+let data = [];
 
 async function buscaDados() {
-    return await fetch(requestURL)
-        .then( async (r) => await r.json())
-}
+    try {
+      let response =  await fetch(requestURL)
+      return await response.json()
+    } catch {
+      // Create error handling logic
+      console.log("Error")
+    }
+  }
+  
 
 function mostraQuartos(cards) {
     bookings.innerhtml = "";
@@ -19,7 +25,7 @@ function renderQuartos(card) {
     const div = document.createElement("div");
     div.style.width ="18rem";
     div.style.margin = "2rem";
-    div.className = 'card';
+    div.className = "card";
     div.innerHTML = `
         <img src="${card.photo}" class="card-img-top" alt="card.name"/>
         <div class="card-body">
