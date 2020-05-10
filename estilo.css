@@ -37,4 +37,10 @@ body {
     
 }
 
+#text {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: black;
+    margin= 20px;
+}
+
 

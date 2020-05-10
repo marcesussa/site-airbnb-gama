@@ -1,48 +1,45 @@
 console.log('Javascript carregado');
 
 //codigo da pagina airbnb
-var head = document.querySelector('head');
-var bookings = document.querySelector('bookings');
+const requestURL = 'https://api.sheety.co/30b6e400-9023-4a15-8e6c-16aa4e3b1e72';
+const bookings = document.querySelector("#bookings");
+const data = [];
 
-var requestURL = 'https://api.sheety.co/30b6e400-9023-4a15-8e6c-16aa4e3b1e72';
+async function buscaDados() {
+    return await fetch(requestURL)
+        .then( async (r) => await r.json())
+}
 
-var request = new XMLHttpRequest();
+function mostraQuartos(cards) {
+    bookings.innerhtml = "";
+    cards.map(renderQuartos);
+}
 
-request.open('GET', requestURL);
-
-request.responseType = 'json';
-request.send();
-
-request.onload = function() {
-    var queroQuartos = request.response;
-    mostrarQuartos(queroQuartos);
-
-function mostrarQuartos(jsonObj) {
-    var quartos = jsonObj['members'];
-        
-    for (var i = 0; i < quartos.length; i++) {
-        var myCard = document.getElementById('myBookings');
-        var myPhoto = document.createElement('img');	
-        var myH2 = document.createElement('h3');
-        var myPara1 = document.createElement('p');
-        var myPara2 = document.createElement('p');
-        var myPara3 = document.createElement('p');
-        var myList = document.createElement('ul');
-  
-        myPhoto.imageContent = quarto[i].photo;
-        myPara1.textContent = 'Tipo: ' + quartos[i].tipo;
-        myPara2.textContent = 'Nome: ' + quartos[i].nomeLocal;
-        myPara3.textContent = 'Preço (R$):' + quartos[i].price;
-          
-   
-        myCard.appendChild(myPhoto);
-        myCard.appendChild(myPara1);
-        myCard.appendChild(myPara2);
-        myCard.appendChild(myPara3);
-        myCard.appendChild(myList);
-  
-        div.appendChild(myBookings);
-    }
-  }
- }
+function renderQuartos(card) {
+    const div = document.createElement("div");
+    div.style.width ="18rem";
+    div.style.margin = "2rem";
+    div.className = 'card';
+    div.innerHTML = `
+        <img src="${card.photo}" class="card-img-top" alt="card.name"/>
+        <div class="card-body">
+            <h3 class="card-title"> ${card.name}</h3>
+            <p class="card-text">
+                Tipo: ${card.property_type}
+            </p>
+            <p class="card-text">
+                Preço: R$ ${card.price},00
+            </p>
+        </div>
+    `;
+    bookings.appendChild(div);
+}
  
+async function main() {
+    data =  await buscaDados();
+    if(data[0]){
+        mostraQuartos(data);
+    }
+}
+
+main();
