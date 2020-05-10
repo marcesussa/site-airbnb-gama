@@ -1,10 +1,10 @@
-#background {
-    color: #ffb3b3;
+body {
+    background-color: #00A699;
 
 }
 
-#container {
-    color: white;
+.container {
+    background-color: white;
 
 }
 
@@ -23,12 +23,18 @@
 
 #foto-logo {
 
+    width: 20%;
 }
 
 #destaques {
     padding: 10 px;
+    margin: 20 px;
 
 
+}
+
+#bookings {
+    
 }
 
 
